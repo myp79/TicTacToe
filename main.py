@@ -41,20 +41,49 @@ def game():
     count = 0
 
     board = Board()
-    for i in range(10):
+    matrix = board.matrix
+    for i in range(9):
         board.print_board()
         print("turn:" + turn + " Choose a place?")
         move = input()
         x, y = place.get(move, (-1, -1))
-        if x == y != -1 and board.matrix[x][y].click:
-            board.matrix[x][y].value = turn
-            board.matrix[x][y].click = False
+        if (x, y) != (-1, -1) and matrix[x][y].click:
+            matrix[x][y].value = turn
+            matrix[x][y].click = False
             count += 1
-        else:
-            print('Wrong Place choose again!')
-            i -= 1
-            continue
+
+        if count >= 5:
+            if matrix[0][0].value == matrix[0][1].value == matrix[0][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[1][0].value == matrix[1][1].value == matrix[1][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[2][0].value == matrix[2][1].value == matrix[2][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[0][0].value == matrix[1][0].value == matrix[2][0].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[0][1].value == matrix[1][1].value == matrix[2][1].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[0][2].value == matrix[1][2].value == matrix[2][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[0][0].value == matrix[1][1].value == matrix[2][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+            elif matrix[2][0].value == matrix[1][1].value == matrix[0][2].value:
+                board.print_board()
+                return '%s WON! Game over!' % (turn)
+
         if turn == 'X':
             turn = 'O'
         else:
             turn = 'X'
+    board.print_board()
+    return 'draw! Game over!'
+
+
+print(game())
